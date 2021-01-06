@@ -113,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
             
             let filteredSources = sources?.filter({
-                !$0.bundleIdentifier.lowercased().hasPrefix("com.apple.health")
+                $0.bundleIdentifier.lowercased().hasPrefix("com.apple.health")
             })
             
             if filteredSources == nil {
