@@ -38,13 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("Authorization OK")
                     
                     self.healthKitQuery(
-                        dates: ["2020-07-06", "2021-01-06"],
+                        dates: ["2020-07-06", "2021-01-07"],
                         healthStore: healthStore,
                         quantityType: stepCountType,
                         unit: HKUnit.count()
                     )
                     self.healthKitQuery(
-                        dates: ["2020-07-06", "2021-01-06"],
+                        dates: ["2020-07-06", "2021-01-07"],
                         healthStore: healthStore,
                         quantityType: distanceType,
                         unit: HKUnit.meter()
@@ -116,12 +116,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 $0.bundleIdentifier.lowercased().hasPrefix("com.apple.health")
             })
             
-            if filteredSources == nil {
-                return
-            } else if filteredSources!.isEmpty {
-                print("NO DATA! DONE...")
-                return
-            }
+//            if filteredSources == nil {
+//                return
+//            } else if filteredSources!.isEmpty {
+//                print("NO DATA! DONE...")
+//                return
+//            }
             
             // Only calculate HealthKit data whose not from
             // "com.apple.Health" app. (Manually inputted)
@@ -129,15 +129,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 from: filteredSources!
             )
             let wasUserEnteredPredicate = HKQuery.predicateForObjects(
-                withMetadataKey: "HKWasUserEntered"
+                withMetadataKey: HKMetadataKeyWasUserEntered,
+                operatorType: .notEqualTo,
+                value: 1
             )
             let predicate = NSCompoundPredicate.init(
                 andPredicateWithSubpredicates: [
                     datePredicate,
 //                    sourcesPredicate,
-                    NSCompoundPredicate(
-                        notPredicateWithSubpredicate: wasUserEnteredPredicate
-                    )
+                    wasUserEnteredPredicate
                 ]
             )
             let query = HKStatisticsCollectionQuery.init(
