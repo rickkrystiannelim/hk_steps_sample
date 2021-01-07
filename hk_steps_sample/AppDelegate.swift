@@ -109,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             samplePredicate: datePredicate
         ) { (query, sources, error) in
             sources?.forEach({ (shit) in
-                print("shit = \(shit.bundleIdentifier)")
+                print("SOURCES = \(shit.bundleIdentifier)")
             })
             
             let filteredSources = sources?.filter({
@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let predicate = NSCompoundPredicate.init(
                 andPredicateWithSubpredicates: [
                     datePredicate,
-//                    sourcesPredicate,
+//                    sourcesPredicate, // Uncomment this to add sources filtering.
                     wasUserEnteredPredicate
                 ]
             )
