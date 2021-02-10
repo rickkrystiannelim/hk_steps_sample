@@ -116,12 +116,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 $0.bundleIdentifier.lowercased().hasPrefix("com.apple.health")
             })
             
-//            if filteredSources == nil {
-//                return
-//            } else if filteredSources!.isEmpty {
-//                print("NO DATA! DONE...")
-//                return
-//            }
+            if filteredSources == nil {
+                return
+            } else if filteredSources!.isEmpty {
+                print("NO DATA! DONE...")
+                return
+            }
             
             // Only calculate HealthKit data whose not from
             // "com.apple.Health" app. (Manually inputted)
@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let predicate = NSCompoundPredicate.init(
                 andPredicateWithSubpredicates: [
                     datePredicate,
-//                    sourcesPredicate, // Uncomment this to add sources filtering.
+                    sourcesPredicate, // Uncomment this to add sources filtering.
                     wasUserEnteredPredicate
                 ]
             )
